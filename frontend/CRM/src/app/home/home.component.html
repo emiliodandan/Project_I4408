@@ -1,0 +1,72 @@
+<div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo" (click)="onLogo()" style="cursor: pointer;">CRM Solution</div>
+      <ul class="sidebar-links">
+        <li><a (click)="onClients()" style="cursor: pointer;">Clients</a></li>
+        <li><a (click)="onMeetings()" style="cursor: pointer;">Meetings</a></li>
+        <li><a (click)="onNotes()" style="cursor: pointer;">Notes</a></li>
+        <li><a (click)="onTasks()" style="cursor: pointer;">Tasks</a></li>
+        <li><a (click)="onProjects()" style="cursor: pointer;">Projects</a></li> 
+        <li><a (click)="onLogout()" style="cursor: pointer;">Logout</a></li>
+      </ul>
+    </aside>
+  
+    <main class="main-content">
+      <section>
+        <div class="hero-content">
+          <h1>Welcome to CRM Solution</h1>
+          <p>Manage your clients, files, meetings, and grow your business smarter and faster!</p>
+        </div>
+      </section>
+  
+      <section class="dashboard">
+        <div class="card" routerLink="/clients">
+          <h2>Clients</h2>
+          <p>View and manage all your clients here.</p>
+        </div>
+        <div class="card" routerLink="/meetings">
+          <h2>Meetings</h2>
+          <p>Schedule and review client meetings.</p>
+        </div>
+        <div class="card" routerLink="/files">
+          <h2>Files</h2>
+          <p>Upload and manage client files securely.</p>
+        </div>
+        <div class="card" routerLink="/remarks">
+          <h2>Remarks</h2>
+          <p>Track notes and updates for clients.</p>
+        </div>
+        <div class="card" routerLink="/projects">
+          <h2>Projects</h2>
+          <p>Organize and monitor client projects.</p>
+        </div>
+        <div class="card" routerLink="/tasks">
+          <h2>Tasks</h2>
+          <p>Manage and assign client-related tasks.</p>
+        </div>
+      </section>      
+  
+      <section class="about">
+        <div class="about-content">
+          <h2>About CRM Solution</h2>
+          <p>MyCRM is a powerful Customer Relationship Management platform built to help businesses of all sizes easily manage their clients, meetings, and documents.</p>
+        </div>
+      </section>
+  
+      <section class="news">
+        <div class="news-content">
+          <h2>Latest News & Updates</h2>
+          <ul>
+            <li><strong>April 2025:</strong> New meeting scheduling feature released!</li>
+            <li><strong>March 2025:</strong> Improved file security with encryption.</li>
+            <li><strong>February 2025:</strong> Mobile-friendly version now available!</li>
+          </ul>
+        </div>
+      </section>
+  
+      <footer class="footer">
+        <p>&copy; 2025 CRM Solution. All rights reserved.</p>
+      </footer>
+    </main>
+  </div>
+  

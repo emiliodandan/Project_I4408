@@ -1,0 +1,58 @@
+<div class="wrapper">
+  <aside class="sidebar">
+      <div class="logo" (click)="onLogo()" style="cursor: pointer;">CRM Solution</div>
+      <ul class="sidebar-links">
+          <li><a (click)="onClients()" style="cursor: pointer;">Clients</a></li>
+          <li><a (click)="onMeetings()" style="cursor: pointer;">Meetings</a></li>
+          <li><a (click)="onNotes()" style="cursor: pointer;">Notes</a></li>
+          <li><a (click)="onTasks()" style="cursor: pointer;">Tasks</a></li>
+          <li><a (click)="onProjects()" style="cursor: pointer;">Projects</a></li>
+          <li><a (click)="onLogout()" style="cursor: pointer;">Logout</a></li>
+      </ul>
+  </aside>
+
+  <main class="main-content">
+      <section class="hero-content">
+          <h1>Notes</h1>
+          <div class="actions">
+              <input placeholder="Search for notes..." class="search-note" [(ngModel)]="searchTerm" />
+
+              <button (click)="openModal()" class="add-note-btn">Add Note</button>
+          </div>
+      </section>
+
+      <div *ngIf="searchTerm.trim()" class="selected-client-header">
+        <h2>Notes for: <strong>{{ searchTerm }}</strong></h2>
+    </div>    
+
+      <div *ngIf="filteredNotes().length === 0 && searchTerm">
+          No notes available.
+      </div>
+
+      <div *ngIf="filteredNotes().length > 0" class="note-list">
+          <div *ngFor="let note of filteredNotes()" class="note-card">
+              <div><strong>{{ getClientNameById(note.client) }}</strong></div>
+              <p>{{ note.content }}</p>
+              <small><strong>Date Added:</strong> {{ note.date_added | date: 'medium' }}</small><br>
+              <button (click)="deleteNote(note.id)" class="delete-note-btn">Delete</button>
+          </div>
+      </div>
+  </main>
+
+  <div *ngIf="modalVisible" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Add Note</h2>
+      <select [(ngModel)]="selectedClientForNote" class="client-dropdown">
+        <option value="" disabled selected>Select Client</option>
+        <option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</option>
+      </select>
+  
+      <textarea [(ngModel)]="newNoteContent" placeholder="Enter note content..." class="note-content-textarea"></textarea>
+  
+      <button (click)="addNote()" class="add-note-btn" [disabled]="!selectedClientForNote || !newNoteContent.trim()">
+        Add Note
+      </button>
+      <button (click)="closeModal()" class="modal-close-btn">Close</button>
+    </div>
+  </div>
+  

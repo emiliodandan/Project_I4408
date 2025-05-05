@@ -1,0 +1,40 @@
+<div class="wrapper">
+  <aside class="sidebar">
+    <div class="logo" (click)="onLogo()" style="cursor: pointer;">CRM Solution</div>
+    <ul class="sidebar-links">
+      <li><a (click)="onClients()" style="cursor: pointer;">Clients</a></li>
+      <li><a (click)="onMeetings()" style="cursor: pointer;">Meetings</a></li>
+      <li><a (click)="onNotes()" style="cursor: pointer;">Notes</a></li>
+      <li><a (click)="onTasks()" style="cursor: pointer;">Tasks</a></li>
+      <li><a (click)="onProjects()" style="cursor: pointer;">Projects</a></li> 
+      <li><a (click)="onLogout()" style="cursor: pointer;">Logout</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <section class="hero-content">
+      <h1>Meetings</h1>
+      <div class="actions">
+        <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search meetings..." class="search-bar"/>
+        <button (click)="goToAddMeeting()" class="add-meeting-btn">Add Meeting</button>
+      </div>
+    </section>
+    
+    <div *ngIf="loading" class="loading-spinner">Loading...</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+    
+    <div class="meeting-list">
+      <div *ngFor="let meeting of filteredMeetings" class="meeting-card">
+        <div class="meeting-info">
+          <h3 class="meeting-title">{{ meeting.title }}</h3>
+          <p class="meeting-date">{{ meeting.scheduled_at | date: 'short' }}</p>
+          <p class="meeting-notes">{{ meeting.notes }}</p>
+        </div>
+        <div class="meeting-actions">
+          <button (click)="editMeeting(meeting.id)" class="edit-btn">Edit</button>
+          <button (click)="deleteMeeting(meeting.id)" class="delete-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

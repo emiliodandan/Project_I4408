@@ -1,0 +1,18 @@
+<section class="add-task">
+    <h2>Add Task</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label>Title</label>
+      <input [(ngModel)]="task.title" name="title" required />
+  
+      <label>Description</label>
+      <textarea [(ngModel)]="task.description" name="description"></textarea>
+  
+      <label>Due Date</label>
+      <input type="datetime-local" [(ngModel)]="task.due_date" name="due_date" required />
+  
+      <label>Completed</label>
+      <input type="checkbox" [(ngModel)]="task.completed" name="completed" />
+  
+      <button type="submit">Add Task</button>
+    </form>
+  </section>

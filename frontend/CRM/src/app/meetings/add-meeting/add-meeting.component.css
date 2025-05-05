@@ -1,0 +1,42 @@
+.add-meeting {
+    padding: 20px;
+    color: #0056b3;
+  }
+  
+form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+label {
+    margin: 10px 0 5px;
+  }
+  
+input,
+select,
+textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #0056b3; /* Dark blue button */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+.submit-btn:hover {
+    background-color: white; /* Even darker on hover */
+    color: #0056b3;
+}
+  

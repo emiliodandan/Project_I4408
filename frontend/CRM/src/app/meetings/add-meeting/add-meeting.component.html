@@ -1,0 +1,24 @@
+<section class="add-meeting">
+    <h2>Add Meeting</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label for="client_id">Client</label>
+      <select [(ngModel)]="meeting.client_id" name="client_id" required>
+        <option value="">-- Select Client --</option>
+        <option *ngFor="let client of clients" [value]="client.id">
+          {{ client.name }}
+        </option>
+      </select>
+  
+      <label for="title">Title</label>
+      <input type="text" [(ngModel)]="meeting.title" name="title" required />
+  
+      <label for="notes">Notes</label>
+      <textarea [(ngModel)]="meeting.notes" name="notes"></textarea>
+  
+      <label for="scheduled_at">Scheduled At</label>
+      <input type="datetime-local" [(ngModel)]="meeting.scheduled_at" name="scheduled_at" required />
+  
+      <button type="submit" class="submit-btn">Add Meeting</button>
+    </form>
+  </section>
+  

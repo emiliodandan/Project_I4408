@@ -1,0 +1,85 @@
+.update-client-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff; /* White form background */
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-client-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #0056b3; /* Dark blue title */
+  }
+  
+  .update-client-form .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .update-client-form label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #0056b3; /* Dark blue labels */
+  }
+  
+  .update-client-form input,
+  .update-client-form textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .update-client-form input:focus,
+  .update-client-form textarea:focus {
+    outline: none;
+    border-color: #0056b3; /* Dark blue focus */
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #0056b3; /* Dark blue button */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .submit-btn:hover {
+    background-color: white; /* Even darker on hover */
+    color: #0056b3;
+  }
+  
+/* New file input styling */
+.update-client-form input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #ffffff;
+  transition: border-color 0.3s;
+  color: transparent; /* Hide the default file input text */
+}
+
+.update-client-form input[type="file"]::-webkit-file-upload-button {
+  background-color: #0056b3; /* Dark blue background for the button */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.update-client-form input[type="file"]:focus {
+  border-color: #0056b3; /* Dark blue focus */
+}

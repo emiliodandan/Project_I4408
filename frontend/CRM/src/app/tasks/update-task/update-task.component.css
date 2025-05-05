@@ -1,0 +1,25 @@
+.edit-task {
+    max-width: 500px;
+    margin: auto;
+    padding: 1rem;
+    color: #0053d8;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  button {
+    margin-top: 1rem;
+    padding: 10px;
+    background-color: #0053d8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

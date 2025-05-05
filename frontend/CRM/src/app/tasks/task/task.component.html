@@ -1,0 +1,47 @@
+<div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo" (click)="onLogo()" style="cursor: pointer;">CRM Solution</div>
+      <ul class="sidebar-links">
+        <li><a (click)="onClients()" style="cursor: pointer;">Clients</a></li>
+        <li><a (click)="onMeetings()" style="cursor: pointer;">Meetings</a></li>
+        <li><a (click)="onNotes()" style="cursor: pointer;">Notes</a></li>
+        <li><a (click)="onTasks()" style="cursor: pointer;">Tasks</a></li>
+        <li><a (click)="onProjects()" style="cursor: pointer;">Projects</a></li>          
+        <li><a (click)="onLogout()" style="cursor: pointer;">Logout</a></li>
+      </ul>
+    </aside>
+  
+    <main class="main-content">
+      <section class="hero-content">
+        <div class="task-list">
+          <h1>Tasks</h1>
+          <div class="task-list">
+            <button class="add-task-btn" (click)="goToAddTask()">+ Add Task</button>
+          
+            <div *ngFor="let task of tasks" [ngClass]="{ 'task-card': true, 'completed': task.completed }">
+              <div class="task-info">
+                <div class="task-title">{{ task.title }}</div>
+                <div class="task-desc">{{ task.description }}</div>
+                <div class="task-meta">
+                  Due: {{ task.due_date | date:'short' }}
+                </div>
+              </div>
+              <div class="task-actions">
+                <label class="checkbox-label">
+                  <input
+                    type="checkbox"
+                    class="complete-checkbox"
+                    [checked]="task.completed"
+                    (change)="toggleCompleted(task)"
+                  />
+                  Completed
+                </label>
+                <button class="edit-btn" (click)="editTask(task.id)">Edit</button>
+                <button class="delete-btn" (click)="deleteTask(task.id)">Delete</button>
+              </div>
+            </div> 
+        </div>
+        </div>
+        </section>
+    </main>
+  </div>

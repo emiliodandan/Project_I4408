@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <aside class="sidebar">
+    <div class="logo" (click)="onLogo()" style="cursor: pointer;">CRM Solution</div>
+    <ul class="sidebar-links">
+      <li><a (click)="onClients()" style="cursor: pointer;">Clients</a></li>
+      <li><a (click)="onMeetings()" style="cursor: pointer;">Meetings</a></li>
+      <li><a (click)="onNotes()" style="cursor: pointer;">Notes</a></li>
+      <li><a (click)="onTasks()" style="cursor: pointer;">Tasks</a></li>
+      <li><a (click)="onProjects()" style="cursor: pointer;">Projects</a></li>          
+      <li><a (click)="onLogout()" style="cursor: pointer;">Logout</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <section class="hero-content">
+      <h1>Clients</h1>
+      <div class="actions">
+        <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search clients..." class="search-bar"/>
+        <button (click)="onAddClient()" class="add-client-btn">Add Client</button>
+      </div>
+    </section>
+
+    <section class="client-list">
+      <table class="client-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of filteredClients" class="client-card" (click)="onClientClick(client.id)" style="cursor: pointer;">
+            <td>{{ client.name }}</td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.phone }}</td>
+            <td class="client-actions">
+              <button (click)="onEditClient(client.id)" class="edit-btn">Edit</button>
+              <button (click)="onDeleteClient(client.id)" class="delete-btn">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>

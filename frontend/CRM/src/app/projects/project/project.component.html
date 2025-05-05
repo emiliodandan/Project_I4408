@@ -1,0 +1,93 @@
+<div class="wrapper">
+    <aside class="sidebar">
+      <div class="logo" (click)="onLogo()" style="cursor: pointer;">CRM Solution</div>
+      <ul class="sidebar-links">
+        <li><a (click)="onClients()" style="cursor: pointer;">Clients</a></li>
+        <li><a (click)="onMeetings()" style="cursor: pointer;">Meetings</a></li>
+        <li><a (click)="onNotes()" style="cursor: pointer;">Notes</a></li>
+        <li><a (click)="onTasks()" style="cursor: pointer;">Tasks</a></li>
+        <li><a (click)="onProjects()" style="cursor: pointer;">Projects</a></li>          
+        <li><a (click)="onLogout()" style="cursor: pointer;">Logout</a></li>
+      </ul>
+    </aside>
+  
+    <main class="main-content">
+      <section class="hero-content">
+        <div class="project-list">
+          <h2>Projects</h2>
+          <button class="add-btn" (click)="openModal()">Add New Project</button>
+    
+          <div *ngFor="let project of projects"
+               class="project-card"
+               [ngClass]="{
+                 'status-pending': project.status === 'pending',
+                 'status-completed': project.status === 'completed',
+                 'status-progress': project.status === 'in progress',
+                 'status-hold': project.status === 'on hold'
+               }">
+            
+            <div class="card-header">
+              <h3><strong>Project Title:</strong> {{ project.title }}</h3>
+              <span class="status-badge"
+                    [ngClass]="{
+                      'badge-pending': project.status === 'pending',
+                      'badge-completed': project.status === 'completed',
+                      'badge-progress': project.status === 'in progress',
+                      'badge-hold': project.status === 'on hold'
+                    }">
+                {{ project.status }}
+              </span>
+            </div>
+    
+            <p><strong>Description:</strong> {{ project.description }}</p>
+            <p><strong>Client:</strong> {{ getClientNameById(project.client) }}</p>
+            <p><strong>Start Date:</strong> {{ project.start_date | date:'short' }}</p>
+            <p><strong>End Date:</strong> {{ project.end_date | date:'short' }}</p>
+    
+            <label for="status-{{ project.id }}"><strong>Status:</strong></label>
+            <select [id]="'status-' + project.id"
+                    [(ngModel)]="project.status"
+                    (change)="updateProjectStatus(project)"
+                    class="status-select">
+              <option value="pending">Pending</option>
+              <option value="in progress">In Progress</option>
+              <option value="completed">Completed</option>
+              <option value="on hold">On Hold</option>
+            </select>
+    
+            <div class="button-group">
+              <button class="edit-btn" (click)="editProject(project.id)">Edit</button>
+              <button class="delete-btn" (click)="deleteProject(project.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>       
+    
+<div *ngIf="modalVisible" class="modal-overlay">
+  <div class="modal-content">
+    <h2>{{ selectedProject ? 'Edit' : 'Add' }} Project</h2>
+
+    <label>Title:</label>
+    <input type="text" [(ngModel)]="currentProject.title" />
+
+    <label>Description:</label>
+    <textarea [(ngModel)]="currentProject.description"></textarea>
+
+    <label>Start Date:</label>
+    <input type="datetime-local" [(ngModel)]="currentProject.start_date" />
+
+    <label>End Date:</label>
+    <input type="datetime-local" [(ngModel)]="currentProject.end_date" />
+
+    <label>Client:</label>
+    <select [(ngModel)]="currentProject.client">
+      <option [ngValue]="null" disabled>Select Client</option>
+      <option *ngFor="let client of clients" [ngValue]="client.id">{{ client.name }}</option>
+    </select>
+
+    <button (click)="selectedProject ? updateProject() : addProject()" class="modal-save-btn">Save</button>
+    <button (click)="closeModal()" class="modal-close-btn">Close</button>
+  </div>
+</div>
+</div>

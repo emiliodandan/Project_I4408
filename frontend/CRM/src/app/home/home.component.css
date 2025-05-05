@@ -1,0 +1,221 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Global Styles */
+body {
+  background-color: #f7f7f7; /* Light gray background */
+  color: #333; /* Dark gray text for readability */
+  font-size: 16px;
+  line-height: 1.6;
+  display: flex;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+/* Wrapper for Sidebar and Main Content */
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  background-color: #0056b3; /* Blue background */
+  width: 250px;
+  padding: 2rem;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.sidebar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.sidebar-links {
+  list-style: none;
+}
+
+.sidebar-links li a {
+  display: block;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-links li a:hover,
+.sidebar-links li a.active {
+  background-color: #ffffff;
+  color: #0056b3;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 2rem;
+  margin-left: 250px; /* To avoid overlapping with the sidebar */
+  height: 100%; /* Make sure it takes up full height */
+  overflow-y: auto;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 100%; /* Ensure the content fills the available height */
+  padding: 2rem; /* Add some padding for spacing */
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #0056b3;
+  text-align: center; /* Ensure the text is centered */
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: darkblue;
+  margin: 0 auto;
+  line-height: 1.6;
+  text-align: center; /* Center-align the paragraph */
+}
+
+
+/* About Section */
+.about {
+  background: linear-gradient(135deg, #e6f2ff, #99c2ff);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.about-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #003366;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* Dashboard Section */
+.dashboard {
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 5rem 2rem;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid #0056b3;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 1.1rem;
+}
+
+/* News Section */
+.news {
+  background: linear-gradient(135deg, #b3c6ff, #80aaff);
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.news-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #003366;
+}
+
+.news-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.news-content ul li {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+/* Footer */
+.footer {
+  background-color: #0056b3;
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 1rem;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Add Client Button */
+.add-client-btn {
+  padding: 10px 20px;
+  background-color: #0056b3; /* Blue background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 16px; /* Text size */
+  transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.add-client-btn:hover {
+  background-color: #004494; /* Darker blue when hovered */
+}

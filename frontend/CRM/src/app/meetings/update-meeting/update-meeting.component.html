@@ -1,0 +1,16 @@
+<section class="edit-meeting">
+    <h2>Edit Meeting</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label>Title</label>
+      <input [(ngModel)]="meeting.title" name="title" required />
+  
+      <label>Notes</label>
+      <textarea [(ngModel)]="meeting.notes" name="notes"></textarea>
+  
+      <label>Scheduled At</label>
+      <input type="datetime-local" [(ngModel)]="meeting.scheduled_at" name="scheduled_at" required />
+  
+      <button type="submit">Save Changes</button>
+    </form>
+  </section>
+  
