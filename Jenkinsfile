@@ -1,12 +1,11 @@
 pipeline{
     agent any
-    tools {nodejs 'node22.12.0'}
 
     stages{
         stage('Install dependencies'){
             steps{
                 dir('frontend/CRM'){
-                    sh 'npm indtall'
+                    sh 'npm install'
                 }
             }
         }
