@@ -1,17 +1,17 @@
-pipeline{
+pipeline {
     agent any
 
-    stages{
-        stage('Install dependencies'){
-            steps{
-                dir('frontend/CRM'){
+    stages {
+        stage('Install dependencies') {
+            steps {
+                dir('frontend/CRM') {
                     sh 'npm install'
                 }
             }
         }
-        stage('Run Tests'){
-            steps{
-                dir('frontend/CRM'){
+        stage('Run Tests') {
+            steps {
+                dir('frontend/CRM') {
                     sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
                 }
             }
@@ -24,6 +24,7 @@ pipeline{
             }
         }
     }
+
     post {
         success {
             echo "Frontend build completed successfully."
