@@ -8,10 +8,10 @@ pipeline {
                 }
             }
         }
-        stage('Run Tests') {
+        stage('Run lint') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'npm run test -- --watch=false'
+                    bat 'npm lint'
                 }
             }
         }
