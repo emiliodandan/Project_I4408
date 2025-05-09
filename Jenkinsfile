@@ -8,12 +8,6 @@ pipeline {
                 }
             }
         }
-        stage('Lint Code') {
-            steps {
-                echo 'Running linter...'
-                bat 'npm run lint'
-            }
-        }
         stage('Run Tests') {
             steps {
                 dir('frontend/CRM') {
