@@ -11,7 +11,7 @@ pipeline {
         stage('Run lint') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'npm lint'
+                    bat 'npm run lint'
                 }
             }
         }
