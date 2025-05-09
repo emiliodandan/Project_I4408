@@ -3,21 +3,21 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                dir('frontend/CRM') {
+                dir('frontend\CRM') {
                     sh 'npm install'
                 }
             }
         }
         stage('Run Tests') {
             steps {
-                dir('frontend/CRM') {
+                dir('frontend\CRM') {
                     sh 'npm run test -- --watch=false --browsers=ChromeHeadless'
                 }
             }
         }
         stage('Build Angular App') {
             steps {
-                dir('frontend/CRM') {
+                dir('frontend\CRM') {
                     sh 'npm run build'
                 }
             }
