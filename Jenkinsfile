@@ -8,10 +8,16 @@ pipeline {
                 }
             }
         }
+        stage('Lint Code') {
+            steps {
+                echo 'Running linter...'
+                bat 'npm run lint'
+            }
+        }
         stage('Run Tests') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'npm run test -- --watch=false --browsers=ChromeHeadless'
+                    bat 'npm run test'
                 }
             }
         }
