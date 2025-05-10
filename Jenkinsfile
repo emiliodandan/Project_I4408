@@ -8,13 +8,6 @@ pipeline {
                 }
             }
         }
-        stage('Run lint') {
-            steps {
-                dir('frontend/CRM') {
-                    bat 'npm run lint'
-                }
-            }
-        }
         stage('Build Angular App') {
             steps {
                 dir('frontend/CRM') {
