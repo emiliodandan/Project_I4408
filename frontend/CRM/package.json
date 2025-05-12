@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "eslint . --ext .ts,.html"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +35,7 @@
     "@angular/compiler-cli": "^19.2.0",
     "@types/jasmine": "~5.1.0",
     "eslint": "^9.26.0",
+    "eslint-plugin-angular": "^4.1.0",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
