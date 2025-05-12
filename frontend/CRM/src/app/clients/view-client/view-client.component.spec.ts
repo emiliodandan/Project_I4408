@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewClientComponent } from './view-client.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('ViewClientComponent', () => {
   let component: ViewClientComponent;
@@ -9,7 +11,15 @@ describe('ViewClientComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewClientComponent, HttpClientTestingModule]
+      imports: [ViewClientComponent, HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: '123' }) // <-- mock client ID
+          }
+        }
+      ]
     })
     .compileComponents();
 
@@ -19,6 +29,9 @@ describe('ViewClientComponent', () => {
   });
 
   it('should create', () => {
+    const fixture = TestBed.createComponent(ViewClientComponent);
+    const component = fixture.componentInstance;
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });
