@@ -11,7 +11,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'ng test --watch=false --browsers=ChromeHeadless'
+                    bat 'npm test --watch=false --browsers=ChromeHeadless'
                 }
             }
         }
