@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UpdateMeetingComponent } from './update-meeting.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UpdateMeetingComponent', () => {
   let component: UpdateMeetingComponent;
@@ -8,7 +9,7 @@ describe('UpdateMeetingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UpdateMeetingComponent]
+      imports: [UpdateMeetingComponent, HttpClientTestingModule]
     })
     .compileComponents();
 
