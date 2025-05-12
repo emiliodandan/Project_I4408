@@ -8,6 +8,13 @@ pipeline {
                 }
             }
         }
+        stage('Run Tests') {
+            steps {
+                dir('frontend/CRM') {
+                    bat 'ng test --watch=false --browsers=ChromeHeadless'
+                }
+            }
+        }
         stage('Build Angular App') {
             steps {
                 dir('frontend/CRM') {
