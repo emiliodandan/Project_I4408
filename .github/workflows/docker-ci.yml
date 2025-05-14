@@ -1,50 +1,28 @@
-name: build-and-run-angular-docker
+name: Build Angular Docker Image
 
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # allow manual trigger
+  workflow_dispatch: # Allow manual trigger from GitHub UI
 
 jobs:
-  build-angular-docker:
-    runs-on: ubuntu-latest  # you can change this to 'windows-latest' if you need Windows
+  build:
+    runs-on: ubuntu-latest
 
     steps:
       # 1. Checkout the code
-      - name: 📦 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       # 2. Set up Node.js
-      - name: 🟢 Set up Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      # 3. Install dependencies and run tests (optional but recommended)
-      - name: 🔧 Install dependencies & run tests
+      # 3. Install dependencies, run tests, and build the Angular app in Docker
+      - name: Build Docker image and run tests
         run: |
-          npm ci
-          npm test -- --watch=false --browsers=ChromeHeadless
-
-      # 4. Build the Angular application (production)
-      - name: 🚧 Build Angular app
-        run: npm run build -- --prod
-
-      # 5. Set up Docker Buildx
-      - name: 🐳 Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      # 6. Log in to Docker Hub using GitHub Secrets
-      - name: 🔐 Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASS }}
-
-      # 7. Build and Push the Docker image
-      - name: 🚀 Build & Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .  # this should point to the root of your repo
-          push: true
-          tags: ${{ secrets.DOCKER_USER }}/angular-frontend:latest
+          docker build --target builder -t angular-builder .
+          docker run angular-builder
+          
