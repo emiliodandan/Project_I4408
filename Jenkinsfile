@@ -32,4 +32,5 @@ pipeline {
             echo "Frontend build failed."
         }
     }
+    
 }
