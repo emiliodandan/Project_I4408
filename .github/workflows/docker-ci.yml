@@ -20,9 +20,8 @@ jobs:
         with:
           node-version: "20"
 
-      # 3. Install dependencies, run tests, and build the Angular app in Docker
+      # 3. Build Docker image and run tests
       - name: Build Docker image and run tests
         run: |
-          docker build --target builder -t angular-builder .
+          docker build -f frontend/CRM/dockerfile --target builder -t angular-builder .
           docker run angular-builder
-          
