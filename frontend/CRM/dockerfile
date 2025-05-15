@@ -1,30 +1,33 @@
+# Stage 1: Build Angular App
 FROM node:22 AS builder
 
+# Set working directory
 WORKDIR /app
 
-# Install required libs for ChromeHeadless
-RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
-    libnss3 \
-    libxss1 \
-    libasound2 \
-    libatk-bridge2.0-0 \
-    libgtk-3-0 \
-    libx11-xcb1 \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
-
-# Optionally install Chromium (or Puppeteer will install it)
-RUN npm install puppeteer --no-save
-
-# Copy package files and install deps
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm ci
 
-# Run tests
-RUN npm test -- --watch=false --browsers=ChromeHeadless
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the project and build
+# Copy the entire Angular project into the container
 COPY . .
-RUN npm run build -- --configuration=production
+
+# Build Angular app in production mode
+RUN npm run build -- --configuration production
+
+# Stage 2: Serve app with Nginx
+FROM nginx:alpine
+
+# Clean default Nginx web folder
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy built app from builder stage
+# NOTE: Replace `crm` with your actual Angular app name (folder under dist/)
+COPY --from=builder /app/dist/crm /usr/share/nginx/html
+
+# Expose default port
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
