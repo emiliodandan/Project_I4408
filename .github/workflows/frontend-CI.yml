@@ -24,7 +24,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: npm ci            #clean reproducible build
+        run: npm ci
 
       #- name: Lint code
       #  run: npm run lint
@@ -44,4 +44,4 @@ jobs:
 
       - name: Deploy to S3 using AWS CLI
         run: |
-          aws s3 sync frontend/CRM/dist s3://${{ secrets.S3_BUCKET_NAME }} --delete
+          aws s3 sync dist s3://${{ secrets.S3_BUCKET_NAME }} --delete
