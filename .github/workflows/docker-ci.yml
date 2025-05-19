@@ -16,7 +16,7 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASS }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USER }}/crm-angular:latest .
+        run: docker build -t ${{ secrets.DOCKER_USER }}/crm:latest .
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USER }}/crm-angular:latest
+        run: docker push ${{ secrets.DOCKER_USER }}/crm:latest
