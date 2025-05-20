@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: angular-build-artifacts
-          path: frontend/CRM/dist
+          path: frontend/CRM/dist/crm
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
