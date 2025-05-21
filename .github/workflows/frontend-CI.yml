@@ -64,3 +64,39 @@ jobs:
         run: |
           aws s3 sync dist/crm/browser s3://${{ secrets.S3_BUCKET_NAME }} --delete
 
+      - name: Send Success Email
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: Angular Frontend Deployed Successfully
+          to: ${{ secrets.EMAIL_TO }}
+          from: GitHub Actions <${{ secrets.EMAIL_USER }}>
+          body: |
+            🎉 Deployment succeeded!
+            Repo: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Job: ${{ github.job }}
+
+            
+      - name: Send Failure Email
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: Angular Frontend CI Failed
+          to: ${{ secrets.EMAIL_TO }}
+          from: GitHub Actions <${{ secrets.EMAIL_USER }}>
+          body: |
+            ❗ Deployment failed.
+            Repo: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Job: ${{ github.job }}
+
+
