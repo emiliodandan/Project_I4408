@@ -81,7 +81,7 @@ jobs:
             Branch: ${{ github.ref_name }}
             Job: ${{ github.job }}
 
-            
+
       - name: Send Failure Email
         if: failure()
         uses: dawidd6/action-send-mail@v3
@@ -98,5 +98,3 @@ jobs:
             Repo: ${{ github.repository }}
             Branch: ${{ github.ref_name }}
             Job: ${{ github.job }}
-
-
