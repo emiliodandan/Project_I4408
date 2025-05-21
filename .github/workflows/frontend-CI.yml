@@ -76,7 +76,7 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: GitHub Actions <${{ secrets.EMAIL_USER }}>
           body: |
-            🎉 Deployment succeeded!
+            Deployment succeeded!
             Repo: ${{ github.repository }}
             Branch: ${{ github.ref_name }}
             Job: ${{ github.job }}
@@ -94,7 +94,7 @@ jobs:
           to: ${{ secrets.EMAIL_TO }}
           from: GitHub Actions <${{ secrets.EMAIL_USER }}>
           body: |
-            ❗ Deployment failed.
+            Deployment failed.
             Repo: ${{ github.repository }}
             Branch: ${{ github.ref_name }}
             Job: ${{ github.job }}
