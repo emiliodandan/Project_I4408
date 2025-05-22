@@ -24,14 +24,14 @@ pipeline {
 
         stage('Set Up Node.js') {
             steps {
-                sh 'node -v || curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs'
+                bat 'node -v'
             }
         }
 
         stage('Install Dependencies') {
             steps {
                 dir('frontend/CRM') {
-                    sh 'npm ci'
+                    bat 'npm ci'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 dir('frontend/CRM') {
-                    sh 'npm run test -- --watch=false --browsers=ChromeHeadless || true'
+                    bat 'npm run test -- --watch=false --browsers=ChromeHeadless || true'
                 }
             }
             post {
@@ -52,7 +52,7 @@ pipeline {
         stage('Build Angular App') {
             steps {
                 dir('frontend/CRM') {
-                    sh 'npm run build'
+                    bat 'npm run build'
                 }
             }
         }
@@ -66,7 +66,7 @@ pipeline {
         stage('Deploy to AWS S3') {
             steps {
                 withAWS(region: "${env.AWS_REGION}", credentials: 'aws-credentials-id') {
-                    sh '''
+                    bat '''
                         aws s3 sync frontend/CRM/dist/crm/browser s3://${S3_BUCKET_NAME} --delete
                     '''
                 }
