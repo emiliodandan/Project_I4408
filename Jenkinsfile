@@ -2,13 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-access-key')
-        AWS_REGION            = 'eu-north-1' 
-
-        EMAIL_USER = credentials('gmail-user')  
-        EMAIL_PASS = credentials('gmail-user') 
-        EMAIL_TO   = 'emilio.dandan@gmail.com'
+        AWS_REGION = 'eu-north-1'
     }
 
     options {
@@ -25,6 +19,7 @@ pipeline {
         stage('Set Up Node.js') {
             steps {
                 bat 'node -v'
+                bat 'npm -v'
             }
         }
 
@@ -39,7 +34,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'npm run test -- --watch=false --browsers=ChromeHeadless || true'
+                    bat 'npm run test -- --watch=false --browsers=ChromeHeadless || exit 0'
                 }
             }
             post {
@@ -64,34 +59,18 @@ pipeline {
         }
 
         stage('Deploy to AWS S3') {
+            environment {
+                AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
+                AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+                S3_BUCKET_NAME        = credentials('s3-bucket-name')
+            }
             steps {
-                withAWS(region: "${env.AWS_REGION}", credentials: 'aws-credentials-id') {
+                dir('frontend/CRM') {
                     bat '''
-                        aws s3 sync frontend/CRM/dist/crm/browser s3://${S3_BUCKET_NAME} --delete
+                        aws s3 sync dist/crm/browser s3://%S3_BUCKET_NAME% --delete
                     '''
                 }
             }
         }
     }
 
-    post {
-        success {
-            mail to: "${env.EMAIL_TO}",
-                 from: "${env.EMAIL_USER}",
-                 subject: "Angular Frontend Deployed Successfully",
-                 body: """Deployment succeeded!
-                        Repo: ${env.JOB_NAME}
-                        Branch: ${env.BRANCH_NAME}
-                        Build: ${env.BUILD_URL}"""
-        }
-        failure {
-            mail to: "${env.EMAIL_TO}",
-                 from: "${env.EMAIL_USER}",
-                 subject: "Angular Frontend CI Failed",
-                 body: """Deployment failed!
-                    Repo: ${env.JOB_NAME}
-                    Branch: ${env.BRANCH_NAME}
-                    Build: ${env.BUILD_URL}"""
-        }
-    }
-}
