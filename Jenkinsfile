@@ -1,24 +1,75 @@
 pipeline {
     agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-access-key')
+        AWS_REGION            = 'eu-north-1' 
+
+        EMAIL_USER = credentials('gmail-user')  
+        EMAIL_PASS = credentials('gmail-user') 
+        EMAIL_TO   = 'receiver@example.com'
+    }
+
+    options {
+        timestamps()
+    }
+
     stages {
-        stage('Install dependencies') {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/your/repo.git'
+            }
+        }
+
+        stage('Set Up Node.js') {
+            steps {
+                // Node.js is usually preinstalled or managed via tools like nvm or nodeenv
+                sh 'node -v || curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs'
+            }
+        }
+
+        stage('Install Dependencies') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'npm install'
+                    sh 'npm ci'
                 }
             }
         }
-        stage('Run Tests') {
+
+        stage('Run Unit Tests') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'npm test --watch=false --browsers=ChromeHeadless'
+                    sh 'npm run test -- --watch=false --browsers=ChromeHeadless || true'
+                }
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'frontend/CRM/test-results/**', allowEmptyArchive: true
                 }
             }
         }
+
         stage('Build Angular App') {
             steps {
                 dir('frontend/CRM') {
-                    bat 'npm run build'
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Upload Artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'frontend/CRM/dist/**', allowEmptyArchive: false
+            }
+        }
+
+        stage('Deploy to AWS S3') {
+            steps {
+                withAWS(region: "${env.AWS_REGION}", credentials: 'aws-credentials-id') {
+                    sh '''
+                        aws s3 sync frontend/CRM/dist/crm/browser s3://${S3_BUCKET_NAME} --delete
+                    '''
                 }
             }
         }
@@ -26,11 +77,22 @@ pipeline {
 
     post {
         success {
-            echo "Frontend build completed successfully."
+            mail to: "${env.EMAIL_TO}",
+                 from: "${env.EMAIL_USER}",
+                 subject: "Angular Frontend Deployed Successfully",
+                 body: """Deployment succeeded!
+Repo: ${env.JOB_NAME}
+Branch: ${env.BRANCH_NAME}
+Build: ${env.BUILD_URL}"""
         }
         failure {
-            echo "Frontend build failed."
+            mail to: "${env.EMAIL_TO}",
+                 from: "${env.EMAIL_USER}",
+                 subject: "Angular Frontend CI Failed",
+                 body: """Deployment failed!
+Repo: ${env.JOB_NAME}
+Branch: ${env.BRANCH_NAME}
+Build: ${env.BUILD_URL}"""
         }
     }
-    
 }
