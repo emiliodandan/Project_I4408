@@ -8,7 +8,7 @@ pipeline {
 
         EMAIL_USER = credentials('gmail-user')  
         EMAIL_PASS = credentials('gmail-user') 
-        EMAIL_TO   = 'receiver@example.com'
+        EMAIL_TO   = 'emilio.dandan@gmail.com'
     }
 
     options {
