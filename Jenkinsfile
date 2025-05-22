@@ -52,21 +52,6 @@ pipeline {
                 archiveArtifacts artifacts: 'frontend/CRM/dist/**', allowEmptyArchive: false
             }
         }
-
-       stage('Deploy to AWS S3') {
-            environment {
-                AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
-                AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-            }
-            steps {
-                script {
-                    def bucket = 'frontend-crm-angular'
-                    dir('frontend/CRM') {
-                        bat "aws s3 sync dist/crm/browser s3://${bucket} --delete"
-                    }
-                }
-            }
-        }
     }
 
 }
