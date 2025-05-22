@@ -37,11 +37,6 @@ pipeline {
                     bat 'npm run test -- --watch=false --browsers=ChromeHeadless || exit 0'
                 }
             }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'frontend/CRM/test-results/**', allowEmptyArchive: true
-                }
-            }
         }
 
         stage('Build Angular App') {
@@ -58,17 +53,17 @@ pipeline {
             }
         }
 
-        stage('Deploy to AWS S3') {
+       stage('Deploy to AWS S3') {
             environment {
                 AWS_ACCESS_KEY_ID     = credentials('aws-access-key-id')
                 AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-                S3_BUCKET_NAME        = credentials('s3-bucket-name')
             }
             steps {
-                dir('frontend/CRM') {
-                    bat '''
-                        aws s3 sync dist/crm/browser s3://%S3_BUCKET_NAME% --delete
-                    '''
+                script {
+                    def bucket = 'frontend-crm-angular'
+                    dir('frontend/CRM') {
+                        bat "aws s3 sync dist/crm/browser s3://${bucket} --delete"
+                    }
                 }
             }
         }
