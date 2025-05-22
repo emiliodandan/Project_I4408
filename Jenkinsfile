@@ -18,13 +18,12 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/your/repo.git'
+                git branch: 'main', url: 'https://github.com/emiliodandan/Project_I4408'
             }
         }
 
         stage('Set Up Node.js') {
             steps {
-                // Node.js is usually preinstalled or managed via tools like nvm or nodeenv
                 sh 'node -v || curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash - && sudo apt-get install -y nodejs'
             }
         }
@@ -81,18 +80,18 @@ pipeline {
                  from: "${env.EMAIL_USER}",
                  subject: "Angular Frontend Deployed Successfully",
                  body: """Deployment succeeded!
-Repo: ${env.JOB_NAME}
-Branch: ${env.BRANCH_NAME}
-Build: ${env.BUILD_URL}"""
+                        Repo: ${env.JOB_NAME}
+                        Branch: ${env.BRANCH_NAME}
+                        Build: ${env.BUILD_URL}"""
         }
         failure {
             mail to: "${env.EMAIL_TO}",
                  from: "${env.EMAIL_USER}",
                  subject: "Angular Frontend CI Failed",
                  body: """Deployment failed!
-Repo: ${env.JOB_NAME}
-Branch: ${env.BRANCH_NAME}
-Build: ${env.BUILD_URL}"""
+                    Repo: ${env.JOB_NAME}
+                    Branch: ${env.BRANCH_NAME}
+                    Build: ${env.BUILD_URL}"""
         }
     }
 }
